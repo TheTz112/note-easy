@@ -5,6 +5,7 @@ const noteRoutes = require('./routes/noteRoutes');
 const customerRouts = require('./routes/customerRoutes');
 const historyRouts = require('./routes/historyNoteRoutes');
 const categoryRouts = require('./routes/categoryRoutes');
+const notes = require('./data/notes');
 const app = express();
 dotenv.config();
 
@@ -25,9 +26,14 @@ app.get('/', (req, res) => {
   res.send('server is running');
 });
 
+app.get('nt', (res, req) => {
+  res.json(notes);
+});
+
 app.use('/notes', noteRoutes);
 app.use('/customers', customerRouts);
 app.use('/history', historyRouts);
 app.use('/category', categoryRouts);
 const PORT = process.env.PORT || 5000;
+
 app.listen(PORT, console.log(`running on PORT ${PORT}`));

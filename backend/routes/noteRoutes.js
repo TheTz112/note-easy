@@ -52,6 +52,7 @@ router.post('/', async (req, res) => {
   }
 });
 
+// update note
 router.put('/:id', async (req, res) => {
   try {
     const note = await Note.findById(req.params.id);
@@ -83,6 +84,7 @@ router.put('/:id', async (req, res) => {
   }
 });
 
+// DELETE a note by ID
 router.delete('/:id', async (req, res) => {
   try {
     const note = await Note.findByIdAndDelete(req.params.id);

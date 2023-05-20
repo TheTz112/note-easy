@@ -54,10 +54,23 @@ router.patch('/:id', getCustomer, async (req, res) => {
   }
 });
 // DELETE a customer by ID
-router.delete('/:id', getCustomer, async (req, res) => {
+// router.delete('/:id', getCustomer, async (req, res) => {
+//   try {
+//     await res.customer.remove();
+//     res.json({ message: 'Customer deleted successfully' });
+//   } catch (err) {
+//     res.status(500).json({ message: err.message });
+//   }
+// });
+
+router.delete('/:id', async (req, res) => {
   try {
-    await res.customer.remove();
-    res.json({ message: 'Customer deleted successfully' });
+    const customer = await Customer.findByIdAndDelete(req.params.id);
+    if (customer == null) {
+      return res.status(404).json({ message: 'Customer not found' });
+    } else {
+      res.json({ message: 'Customer deleted successfully' });
+    }
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
